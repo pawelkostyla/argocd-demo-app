@@ -45,7 +45,7 @@ jobs:
           value: ${{ steps.short-sha.outputs.sha }}
           commitChange: true
           updateFile: true
-          targetBranch: config
-          branch: config
+          targetBranch: master
+          branch: master
           masterBranchName: master
         if: github.event_name != 'pull_request'

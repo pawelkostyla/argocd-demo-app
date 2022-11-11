@@ -48,4 +48,5 @@ jobs:
           targetBranch: master
           branch: master
           masterBranchName: master
+          repository: pawelkostyla/argocd-configrepo
         if: github.event_name != 'pull_request'

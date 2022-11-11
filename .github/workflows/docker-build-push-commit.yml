@@ -34,7 +34,7 @@ jobs:
             GIT_REVISION=${{ steps.short-sha.outputs.sha }}
       - uses: actions/checkout@master
         with:
-          repository: https://github.com/pawelkostyla/argocd-configrepo
+          repository: pawelkostyla/argocd-configrepo
           ref: master
         if: github.event_name != 'pull_request'
       - name: Update application.yaml

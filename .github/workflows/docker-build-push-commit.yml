@@ -51,6 +51,7 @@ jobs:
           branch: master
           workDir: configrepo
           masterBranchName: master
+          message: 'Update pawelkostylahuuuge/argocd_demo_app image Version to ${{ steps.short-sha.outputs.sha }}'
           repository: pawelkostyla/argocd-configrepo
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
         if: github.event_name != 'pull_request'

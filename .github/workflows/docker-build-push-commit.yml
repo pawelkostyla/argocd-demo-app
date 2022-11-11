@@ -37,7 +37,7 @@ jobs:
           repository: pawelkostyla/argocd-configrepo
           ref: master
           path: configrepo
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
         if: github.event_name != 'pull_request'
       - name: Update application.yaml
         uses: fjogeleit/yaml-update-action@main
@@ -52,5 +52,5 @@ jobs:
           workDir: configrepo
           masterBranchName: master
           repository: pawelkostyla/argocd-configrepo
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
         if: github.event_name != 'pull_request'

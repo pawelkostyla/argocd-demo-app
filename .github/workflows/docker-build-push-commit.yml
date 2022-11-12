@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-push-docker:
     runs-on: ubuntu-latest
+    outputs:
+      short-sha: ${{ steps.short-sha.outputs.sha }}
 
     steps:
       - name: Checkout
@@ -29,9 +31,9 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: pawelkostylahuuuge/argocd_demo_app:${{ steps.short-sha.outputs.sha }}
+          tags: pawelkostylahuuuge/argocd_demo_app:${{ outputs.short-sha }}
           build-args: |
-            GIT_REVISION=${{ steps.short-sha.outputs.sha }}
+            GIT_REVISION=${{ outputs.short-sha }}
 #   deploy-pull-request:  
 #     runs-on: ubuntu-latest
     
@@ -66,16 +68,16 @@ jobs:
           branch: master
           workDir: configrepo
           masterBranchName: master
-          message: 'Update pawelkostylahuuuge/argocd_demo_app image Version to ${{ needs.build-and-push-docker.steps.short-sha.outputs.sha }}'
+          message: 'Update pawelkostylahuuuge/argocd_demo_app image Version to ${{ needs.build-and-push-docker.outputs.short-sha }}'
           repository: pawelkostyla/argocd-configrepo
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
           changes: |
             {
               "projects/applications/staging/demo-app/values.yaml": {
-                "image.tag": ${{ needs.build-and-push-docker.steps.short-sha.outputs.sha }}
+                "image.tag": ${{ needs.build-and-push-docker.outputs.short-sha }}
               },
               "projects/applications/production/demo-app/values.yaml": {
-                "image.tag": ${{ needs.build-and-push-docker.steps.short-sha.outputs.sha }}
+                "image.tag": ${{ needs.build-and-push-docker.outputs.short-sha }}
               }
             }
         if: github.event_name != 'pull_request'

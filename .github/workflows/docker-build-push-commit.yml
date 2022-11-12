@@ -59,20 +59,23 @@ jobs:
         with:
           valueFile: 'projects/applications/staging/demo-app/values.yaml'
           propertyPath: 'image.tag'
-          value: ${{ steps.short-sha.outputs.sha }}
+#           value: ${{ steps.short-sha.outputs.sha }}
           commitChange: true
           updateFile: true
           targetBranch: master
           branch: master
           workDir: configrepo
           masterBranchName: master
-          message: 'Update pawelkostylahuuuge/argocd_demo_app image Version to ${{ steps.short-sha.outputs.sha }}'
+          message: 'Update pawelkostylahuuuge/argocd_demo_app image Version to ${{ needs.build-and-push-docker.steps.short-sha.outputs.sha }}'
           repository: pawelkostyla/argocd-configrepo
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
           changes: |
             {
+              "projects/applications/staging/demo-app/values.yaml": {
+                "image.tag": ${{ needs.build-and-push-docker.steps.short-sha.outputs.sha }}
+              },
               "projects/applications/production/demo-app/values.yaml": {
-                "image.tag": ${{ steps.short-sha.outputs.sha }}
+                "image.tag": ${{ needs.build-and-push-docker.steps.short-sha.outputs.sha }}
               }
             }
         if: github.event_name != 'pull_request'

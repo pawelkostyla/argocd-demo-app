@@ -71,7 +71,7 @@ jobs:
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
           changes: |
             {
-              "projects/applications/staging/demo-app/values.yaml": {
+              "projects/applications/production/demo-app/values.yaml": {
                 "image.tag": ${{ steps.short-sha.outputs.sha }}
               }
             }

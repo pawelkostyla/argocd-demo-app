@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-and-push-docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +32,15 @@ jobs:
           tags: pawelkostylahuuuge/argocd_demo_app:${{ steps.short-sha.outputs.sha }}
           build-args: |
             GIT_REVISION=${{ steps.short-sha.outputs.sha }}
+#   deploy-pull-request:  
+#     runs-on: ubuntu-latest
+    
+#     steps:
+    
+  deploy-master:  
+    runs-on: ubuntu-latest
+    
+    steps:
       - uses: actions/checkout@master
         with:
           repository: pawelkostyla/argocd-configrepo

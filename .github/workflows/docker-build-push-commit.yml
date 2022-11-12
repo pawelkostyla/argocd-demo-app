@@ -36,7 +36,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: $DOCKERHUB_REPO/$APP_NAME:${{ steps.short-sha.outputs.sha }}
+          tags: ${DOCKERHUB_REPO}/${APP_NAME}:${{ steps.short-sha.outputs.sha }}
           build-args: |
             GIT_REVISION=${{ steps.short-sha.outputs.sha }}
 
@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
         with:
-          repository: $CONFIGREPO
+          repository: ${CONFIGREPO}
           ref: master
           path: configrepo
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
@@ -63,8 +63,8 @@ jobs:
           branch: master
           workDir: configrepo
           masterBranchName: master
-          message: 'Update $DOCKERHUB_REPO/$APP_NAME image Version to ${{ needs.build-and-push-docker.outputs.short-sha }}'
-          repository: $CONFIGREPO
+          message: 'Update ${DOCKERHUB_REPO}/${APP_NAME} image Version to ${{ needs.build-and-push-docker.outputs.short-sha }}'
+          repository: ${CONFIGREPO}
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
           changes: |
             {

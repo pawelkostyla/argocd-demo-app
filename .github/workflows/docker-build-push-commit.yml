@@ -31,13 +31,9 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: pawelkostylahuuuge/argocd_demo_app:${{ outputs.short-sha }}
+          tags: pawelkostylahuuuge/argocd_demo_app:${{ steps.short-sha.outputs.sha }}
           build-args: |
-            GIT_REVISION=${{ outputs.short-sha }}
-#   deploy-pull-request:  
-#     runs-on: ubuntu-latest
-    
-#     steps:
+            GIT_REVISION=${{ steps.short-sha.outputs.sha }}
 
   update-configrepo:  
     runs-on: ubuntu-latest

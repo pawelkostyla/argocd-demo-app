@@ -73,5 +73,11 @@ jobs:
               },
               "projects/applications/production/demo-app/values.yaml": {
                 "image.tag": "${{ needs.build-and-push-docker.outputs.short-sha }}"
+              },
+              "projects/applicationsets/demo-app-applicationset/values/staging.yaml": {
+                "image.tag": "${{ needs.build-and-push-docker.outputs.short-sha }}"
+              },
+              "projects/applicationsets/demo-app-applicationset/values/production.yaml": {
+                "image.tag": "${{ needs.build-and-push-docker.outputs.short-sha }}"
               }
             }

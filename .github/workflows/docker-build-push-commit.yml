@@ -69,9 +69,9 @@ jobs:
           changes: |
             {
               "projects/applications/staging/demo-app/values.yaml": {
-                "image.tag": ${{ needs.build-and-push-docker.outputs.short-sha }}
+                "image.tag": "${{ needs.build-and-push-docker.outputs.short-sha }}"
               },
               "projects/applications/production/demo-app/values.yaml": {
-                "image.tag": ${{ needs.build-and-push-docker.outputs.short-sha }}
+                "image.tag": "${{ needs.build-and-push-docker.outputs.short-sha }}"
               }
             }

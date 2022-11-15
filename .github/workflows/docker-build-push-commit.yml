@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_LOGIN }}
           password: ${{ secrets.DOCKERHUB_PASS }}
       - name: Set tag for pullrequest
-        run: echo "DOCKER_TAG=${{ GITHUB_SHA }}.pr" >> $GITHUB_ENV
+        run: echo "DOCKER_TAG=${{ github.event.pull_request.head.sha }}.pr" >> $GITHUB_ENV
         if: ${{ github.event_name == 'pull_request' }}
       - name: Set tag for master
         run: echo "DOCKER_TAG=${{ GITHUB_SHA }}" >> $GITHUB_ENV

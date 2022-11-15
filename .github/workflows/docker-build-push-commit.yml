@@ -35,8 +35,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }}:${{ steps.short-sha.outputs.sha }}
+          push: true
+          tags: ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }}:${{ steps.short-sha.outputs.sha }}${{ github.event_name != 'pull_request' || ".dev" }}
           build-args: |
             GIT_REVISION=${{ steps.short-sha.outputs.sha }}
 

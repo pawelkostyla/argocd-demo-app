@@ -29,6 +29,12 @@ jobs:
         id: short-sha
         with:
           length: 8
+      - name: Set tag for pullrequest
+        run: echo "DOCKER_TAG=${{ steps.short-sha.outputs.sha }}.pr" >> $GITHUB_ENV
+        if: ${{ github.event_name == 'pull_request' }}
+      - name: Set tag for master
+        run: echo "DOCKER_TAG=${{ steps.short-sha.outputs.sha }}" >> $GITHUB_ENV
+        if: ${{ github.event_name != 'pull_request' }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Build
@@ -36,7 +42,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }}:${{ steps.short-sha.outputs.sha }}${{ github.event_name == 'pull_request' && '.dev' || '' }}
+          tags: ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }}:${{ env.DOCKER_TAG }}
           build-args: |
             GIT_REVISION=${{ steps.short-sha.outputs.sha }}
 

@@ -27,7 +27,7 @@ jobs:
         run: echo "DOCKER_TAG=${{ github.event.pull_request.head.sha }}.pr" >> $GITHUB_ENV
         if: ${{ github.event_name == 'pull_request' }}
       - name: Set tag for master
-        run: echo "DOCKER_TAG=${{ GITHUB_SHA }}" >> $GITHUB_ENV
+        run: echo "DOCKER_TAG=${{ github.sha }}" >> $GITHUB_ENV
         if: ${{ github.event_name != 'pull_request' }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -69,15 +69,15 @@ jobs:
           changes: |
             {
               "projects/applications/staging/demo-app/values.yaml": {
-                "image.tag": "${{ GITHUB_SHA }}"
+                "image.tag": "${{ github.sha }}"
               },
               "projects/applications/production/demo-app/values.yaml": {
-                "image.tag": "${{ GITHUB_SHA }}"
+                "image.tag": "${{ github.sha }}"
               },
               "projects/applicationsets/demo-app-applicationset/values/staging.yaml": {
-                "image.tag": "${{ GITHUB_SHA }}"
+                "image.tag": "${{ github.sha }}"
               },
               "projects/applicationsets/demo-app-applicationset/values/production.yaml": {
-                "image.tag": "${{ GITHUB_SHA }}"
+                "image.tag": "${{ github.sha }}"
               }
             }

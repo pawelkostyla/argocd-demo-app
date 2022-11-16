@@ -38,7 +38,7 @@ jobs:
           push: true
           tags: ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }}:${{ env.DOCKER_TAG }}
           build-args: |
-            GIT_REVISION=${{ github.sha }}
+            GIT_REVISION=${{ env.DOCKER_TAG }}
 
   update-configrepo:  
     runs-on: ubuntu-latest

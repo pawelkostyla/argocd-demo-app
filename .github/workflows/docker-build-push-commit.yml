@@ -63,7 +63,7 @@ jobs:
           branch: master
           workDir: configrepo
           masterBranchName: master
-          message: 'Update ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }} image Version to ${{ needs.build-and-push-docker.outputs.short-sha }}'
+          message: 'Update ${{ env.DOCKERHUB_REPO }}/${{ env.APP_NAME }} image Version to ${{ github.sha }}'
           repository: ${{ env.CONFIGREPO }}
           token: ${{ secrets.ARGOCD_CONFIGREPO_TOKEN }}
           changes: |
